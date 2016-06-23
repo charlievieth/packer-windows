@@ -5,7 +5,7 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": true,
+      "headless": false,
       "boot_wait": "2m",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -25,45 +25,10 @@
       "vmx_data": {
         "RemoteDisplay.vnc.enabled": "false",
         "RemoteDisplay.vnc.port": "5900",
-        "memsize": "2048",
-        "numvcpus": "2",
+        "memsize": "4096",
+        "numvcpus": "6",
         "scsi0.virtualDev": "lsisas1068"
       }
-    },
-    {
-      "type": "virtualbox-iso",
-      "iso_url": "{{user `iso_url`}}",
-      "iso_checksum_type": "{{user `iso_checksum_type`}}",
-      "iso_checksum": "{{user `iso_checksum`}}",
-      "headless": true,
-      "boot_wait": "2m",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_wait_timeout": "6h",
-      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
-      "guest_os_type": "Windows2012_64",
-      "disk_size": 61440,
-      "floppy_files": [
-        "{{user `autounattend`}}",
-        "./scripts/microsoft-updates.bat",
-        "./scripts/win-updates.ps1",
-        "./scripts/openssh.ps1",
-        "./scripts/oracle-cert.cer"
-      ],
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ]
     }
   ],
   "provisioners": [
